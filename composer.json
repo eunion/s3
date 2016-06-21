@@ -1,5 +1,5 @@
 {
-    "name": "kify/S3",
+    "name": "kify/s3",
     "type": "library",
     "description": "S3 Resource (Cloud) Storage SDK for PHP",
     "keywords": ["laravel", "S3", "sdk", "composer"],
@@ -15,6 +15,6 @@
         "php": ">=5.4.3"
     },
     "autoload": {
-        "psr-4": {"S3\\": "src/S3"}
+        "psr-4": {"S3\\": "src/s3"}
     }
 }
