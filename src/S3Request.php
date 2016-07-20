@@ -1,8 +1,8 @@
 <?php
 
-namespace S3;
+namespace Eunion\S3;
 
-use S3;
+use Eunion\S3;
 
 final class S3Request
 {

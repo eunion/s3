@@ -1,20 +1,21 @@
 {
-    "name": "kify/s3",
-    "type": "library",
-    "description": "S3 Resource (Cloud) Storage SDK for PHP",
-    "keywords": ["laravel", "S3", "sdk", "composer"],
-    "homepage": "http://www.timelink.cn",
+    "name": "Eunion/S3",
+    "description": "Package for laravle 5.* to deal with S3 rest api upload",
+    "keywords": ["Laravel S3","Laravel 5 S3","S3 rest api",""],
     "license": "MIT",
     "authors": [
         {
-            "name": "eunion/s3",
+            "name": "Kify",
             "email": "hui.liu@timelink.cn"
         }
     ],
     "require": {
-        "php": ">=5.4.3"
+        "php": ">=5.5.9",
+        "illuminate/support": "~5.0"
     },
     "autoload": {
-        "psr-4": {"S3\\": "src/s3"}
+        "psr-0": {
+            "Eunion\\S3": "src/"
+        }
     }
 }

@@ -1,1 +1,49 @@
-Kify laravel S3
+Package for laravle 5.* to deal with S3 rest api upload
+
+To use
+1、composer require Kify/S3
+
+2、php artisan vendor:publish --provider="Kify\S3\S3ServiceProvider" --tag=config
+
+3、config your S3 accessKey and secret in dictionary of app/config/s3.php
+
+4、Add the package to your application service providers in config/app.php file.
+
+'providers' => [
+
+    /**
+     * Third Party Service Providers...
+     */
+    Kify\S3\S3ServiceProvider::class,
+
+],
+
+
+
+Example:
+$s3 = new \Kify\S3\S3();
+
+$bucket = 'kify';
+$path = 'test/';
+$lifetime = 3600; 
+$maxFileSize = (1024 * 1024 * 50);
+$metaHeaders = [];
+$requestHeaders = array(
+    'Content-Type' => 'application/octet-stream',
+    'Content-Disposition' => 'attachment; filename=${filename}'
+);
+
+$params = $s3::getHttpUploadPostParams(
+    $bucket,		//your bucket name
+    $path,			//the path of your upload，Can be empty ''
+    $s3::ACL_PUBLIC_READ,		//file permission
+    $lifetime,			//Period for which the parameters are valid
+    $maxFileSize,		//max file size allow
+    "http://fenke.timelink.cn/test.php", // callback url method get
+    $metaHeaders,			//meta header 
+    $requestHeaders,		//request header
+    false // False since we're not using flash
+);
+
+
+

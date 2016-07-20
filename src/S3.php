@@ -1,8 +1,8 @@
 <?php
-namespace S3;
+namespace Eunion\S3;
 
-use S3Exception;
-use S3Request;
+use Eunion\S3Exception;
+use Eunion\S3Request;
 
 class S3
 {
@@ -172,8 +172,12 @@ class S3
 	*/
 	public function __construct($accessKey = null, $secretKey = null, $useSSL = false, $endpoint = 's3.amazonaws.com')
 	{
-		if ($accessKey !== null && $secretKey !== null)
+		if ($accessKey !== null && $secretKey !== null){
 			self::setAuth($accessKey, $secretKey);
+		}
+		else{
+			self::setAuth(config('s3.accessKey'), config('s3.secret'));
+		}
 		self::$useSSL = $useSSL;
 		self::$endpoint = $endpoint;
 	}
@@ -1217,13 +1221,13 @@ class S3
 	$maxFileSize = 5242880, $successRedirect = "201", $amzHeaders = array(), $headers = array(), $flashVars = false)
 	{
 		// Create policy object
-		$policy = new stdClass;
+		$policy = new \stdClass;
 		$policy->expiration = gmdate('Y-m-d\TH:i:s\Z', (self::__getTime() + $lifetime));
 		$policy->conditions = array();
-		$obj = new stdClass; $obj->bucket = $bucket; array_push($policy->conditions, $obj);
-		$obj = new stdClass; $obj->acl = $acl; array_push($policy->conditions, $obj);
+		$obj = new \stdClass; $obj->bucket = $bucket; array_push($policy->conditions, $obj);
+		$obj = new \stdClass; $obj->acl = $acl; array_push($policy->conditions, $obj);
 
-		$obj = new stdClass; // 200 for non-redirect uploads
+		$obj = new \stdClass; // 200 for non-redirect uploads
 		if (is_numeric($successRedirect) && in_array((int)$successRedirect, array(200, 201)))
 			$obj->success_action_status = (string)$successRedirect;
 		else // URL
@@ -1239,7 +1243,7 @@ class S3
 			array_push($policy->conditions, array('starts-with', '$'.$headerKey, ''));
 		foreach ($amzHeaders as $headerKey => $headerVal)
 		{
-			$obj = new stdClass;
+			$obj = new \stdClass;
 			$obj->{$headerKey} = (string)$headerVal;
 			array_push($policy->conditions, $obj);
 		}
@@ -1247,7 +1251,7 @@ class S3
 		$policy = base64_encode(str_replace('\/', '/', json_encode($policy)));
 
 		// Create parameters
-		$params = new stdClass;
+		$params = new \stdClass;
 		$params->AWSAccessKeyId = self::$__accessKey;
 		$params->key = $uriPrefix.'${filename}';
 		$params->acl = $acl;

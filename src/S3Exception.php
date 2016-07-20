@@ -1,6 +1,6 @@
 <?php
 
-namespace S3;
+namespace Eunion\S3;
 
 class S3Exception extends Exception {
 	/**
