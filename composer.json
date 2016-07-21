@@ -1,7 +1,7 @@
 {
     "name": "eunion/s3",
     "description": "Package for laravle 5.* to deal with S3 rest api upload",
-    "keywords": ["Laravel S3","Laravel 5 S3","S3 rest api",""],
+    "keywords": ["Laravel S3","Laravel 5 S3","S3 rest api"],
     "license": "MIT",
     "authors": [
         {
