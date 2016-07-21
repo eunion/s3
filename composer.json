@@ -1,5 +1,5 @@
 {
-    "name": "Eunion/S3",
+    "name": "eunion/s3",
     "description": "Package for laravle 5.* to deal with S3 rest api upload",
     "keywords": ["Laravel S3","Laravel 5 S3","S3 rest api",""],
     "license": "MIT",
