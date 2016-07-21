@@ -15,35 +15,77 @@ To use
      * Third Party Service Providers...
      */
     Kify\S3\S3ServiceProvider::class,
+	
+	'aliases' => [
+	
+		'S3'    => Eunion\S3\S3ServiceProvider::class
+
+	],
 
 ],
 
+5、publish the config to app/config/s3.php
+
+	php artisan vendor:publish --provider="Eunion\S3\S3ServiceProvider" --tag=config
+
+6、config you s3 in app/config/s3.php
+
+	return [
+		'driver'	=>	's3',		//
+		'accessKey'	=>	'',			//your s3 api accessKey
+		'secret'	=>	'',			//your s3 api secret
+		'bucket'	=>	''			//your s3 bucket
+	];
 
 
-Example:
-$s3 = new \Kify\S3\S3();
-
+Controller Example:
+$s3 = new S3();
 $bucket = 'kify';
-$path = 'test/';
-$lifetime = 3600; 
-$maxFileSize = (1024 * 1024 * 50);
+$path = 'test/'; // Can be empty ''
+$lifetime = 3600; // Period for which the parameters are valid
+$maxFileSize = (1024 * 1024 * 50); // 50 MB
 $metaHeaders = [];
 $requestHeaders = array(
-    'Content-Type' => 'application/octet-stream',
-    'Content-Disposition' => 'attachment; filename=${filename}'
+	'Content-Type' => 'application/octet-stream',
+	'Content-Disposition' => 'attachment; filename=${filename}'
 );
 
-$params = $s3::getHttpUploadPostParams(
-    $bucket,		//your bucket name
-    $path,			//the path of your upload，Can be empty ''
-    $s3::ACL_PUBLIC_READ,		//file permission
-    $lifetime,			//Period for which the parameters are valid
-    $maxFileSize,		//max file size allow
-    "http://fenke.timelink.cn/test.php", // callback url method get
-    $metaHeaders,			//meta header 
-    $requestHeaders,		//request header
-    false // False since we're not using flash
+$params = $s3->getHttpUploadPostParams(
+	$bucket,
+	$path,
+	S3::ACL_PUBLIC_READ,
+	$lifetime,
+	$maxFileSize,
+	"http://fenke.timelink.cn/test.php", // Or a URL to redirect to on success
+	$metaHeaders,
+	$requestHeaders,
+	false // False since we're not using flash
 );
+
+$uploadUrl = "https://{$bucket}.".$s3::$endpoint;
+
+return view('home.s3.index',compact('params','uploadUrl'));
+
+
+Blade Example:
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>S3 upload</title>
+</head>
+<body>
+    <form action="{{ $uploadUrl }}" method="post" enctype="multipart/form-data">
+        @foreach($params as $k=>$v)
+            {{ $k }}:<input type="text" name="{{ $k }}" value="{{ $v }}">
+        @endforeach
+        <hr>
+            <input type="file" name="file" id="">
+            <input type="submit" value="上传">
+    </form>
+</body>
+</html>
+
 
 
 
