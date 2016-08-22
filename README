@@ -1,34 +1,24 @@
 Package for laravle 5.* to deal with S3 rest api upload
 
 To use
-1、composer require Kify/S3
+1、composer require eunion/s3
 
-2、php artisan vendor:publish --provider="Kify\S3\S3ServiceProvider" --tag=config
-
-3、config your S3 accessKey and secret in dictionary of app/config/s3.php
-
-4、Add the package to your application service providers in config/app.php file.
+2、Add the package to your application service providers in config/app.php file.
 
 'providers' => [
 
     /**
      * Third Party Service Providers...
      */
-    Kify\S3\S3ServiceProvider::class,
-	
-	'aliases' => [
-	
-		'S3'    => Eunion\S3\S3ServiceProvider::class
-
-	],
+    Eunion\S3\S3ServiceProvider::class,
 
 ],
 
-5、publish the config to app/config/s3.php
+3、publish the config to app/config/s3.php
 
 	php artisan vendor:publish --provider="Eunion\S3\S3ServiceProvider" --tag=config
 
-6、config you s3 in app/config/s3.php
+4、config you s3 in app/config/s3.php
 
 	return [
 		'driver'	=>	's3',		//

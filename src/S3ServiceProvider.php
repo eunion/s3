@@ -16,6 +16,7 @@ class S3ServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/config/s3.php' => config_path('s3.php')
         ], 'config');
+
     }
 
     /**
@@ -26,5 +27,6 @@ class S3ServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/config/s3.php', 's3');
+        
     }
 }
