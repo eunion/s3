@@ -10,12 +10,11 @@
         }
     ],
     "require": {
-        "php": ">=5.5.9",
-        "illuminate/support": "~5.0"
+        "php": ">=5.5.9"
     },
     "autoload": {
-        "psr-0": {
-            "Eunion\\S3": "src/"
+        "psr-4": {
+            "Eunion\\S3\\": "src/"
         }
     }
 }
