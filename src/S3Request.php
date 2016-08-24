@@ -2,7 +2,7 @@
 
 namespace Eunion\S3;
 
-use Eunion\S3;
+use Eunion\S3\S3;
 
 final class S3Request
 {
