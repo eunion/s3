@@ -2,7 +2,7 @@
 
 namespace Eunion\S3;
 
-class S3Exception extends Exception {
+class S3Exception extends \Exception {
 	/**
 	 * Class constructor
 	 *
