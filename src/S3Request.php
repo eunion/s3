@@ -446,7 +446,7 @@ final class S3Request
 			elseif ($header == 'ETag')
 				$this->response->headers['hash'] = $value{0} == '"' ? substr($value, 1, -1) : $value;
 			elseif (preg_match('/^x-amz-meta-.*$/', $header))
-				$this->response->headers[$header] = $value;
+				$this->response->headers[substr($header,11)] = $value;
 		}
 		return $strlen;
 	}
