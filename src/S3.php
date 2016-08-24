@@ -1,8 +1,8 @@
 <?php
 namespace Eunion\S3;
 
-use Eunion\S3Exception;
-use Eunion\S3Request;
+use Eunion\S3\S3Exception;
+use Eunion\S3\S3Request;
 
 class S3
 {
