@@ -131,7 +131,7 @@ final class S3Request
 		{
 			if ($this->__dnsBucketName($this->bucket))
 			{
-				$this->headers['Host'] = $this->bucket.'.'.$this->endpoint;
+				$this->headers['Host'] = $this->endpoint .'/'. $this->bucket;
 				$this->resource = '/'.$this->bucket.$this->uri;
 			}
 			else
@@ -222,9 +222,7 @@ final class S3Request
 				$this->resource .= $query;
 		}
 		$url = (S3::$useSSL ? 'https://' : 'http://') . ($this->headers['Host'] !== '' ? $this->headers['Host'] : $this->endpoint) . $this->uri;
-
 		//var_dump('bucket: ' . $this->bucket, 'uri: ' . $this->uri, 'resource: ' . $this->resource, 'url: ' . $url);
-
 		// Basic setup
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_USERAGENT, 'S3/php');
@@ -327,7 +325,7 @@ final class S3Request
 		}
 
 		// Execute, grab errors
-		if (curl_exec($curl))
+		if ($re = curl_exec($curl))
 			$this->response->code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 		else
 			$this->response->error = array(

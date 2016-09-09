@@ -183,6 +183,7 @@ class S3
 	}
 
 
+
 	/**
 	* Set the service endpoint
 	*
@@ -206,6 +207,10 @@ class S3
 	{
 		self::$__accessKey = $accessKey;
 		self::$__secretKey = $secretKey;
+	}
+
+	public static function getAuth(){
+		return [self::$__accessKey,self::$__secretKey];
 	}
 
 
